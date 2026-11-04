@@ -1,0 +1,87 @@
+{
+  "Evelta (variant page par check karna)": false,
+  "Fab.to.Lab": false,
+  "ThinkRobotics": false,
+  "Allnet China (international, import duty lagegi)": false,
+  "pi|ThinkRobotics|Raspberry Pi 3 Model B+": {
+    "in_stock": false,
+    "price": 4449.99
+  },
+  "pi|ThinkRobotics|Raspberry Pi 3 Model A+": {
+    "in_stock": false,
+    "price": 2529.0
+  },
+  "pi|ThinkRobotics|Raspberry Pi 3 Model B": {
+    "in_stock": false,
+    "price": 3679.99
+  },
+  "pi|ThinkRobotics|Raspberry Pi 4 X735 V2.5 Expansion Board for Raspberry Pi": {
+    "in_stock": false,
+    "price": 3599.99
+  },
+  "pi|ThinkRobotics|Raspberry Pi 4 Official Guide Updated": {
+    "in_stock": false,
+    "price": 999.99
+  },
+  "pi|Robocraze|Official Raspberry Pi 5 Model 8GB RAM Development Board": {
+    "in_stock": false,
+    "price": 19999.0
+  },
+  "pi|Robocraze|Raspberry Pi 4 Model B 2GB RAM Single Board Computer": {
+    "in_stock": false,
+    "price": 7091.0
+  },
+  "pi|Robocraze|Raspberry Pi 5 Model 2GB RAM": {
+    "in_stock": false,
+    "price": 7869.0
+  },
+  "pi|Robocraze|Official Raspberry Pi 5 Model B 1GB RAM": {
+    "in_stock": false,
+    "price": 5044.0
+  },
+  "pi|Robocraze|Raspberry Pi 5 4GB": {
+    "in_stock": false,
+    "price": 14181.0
+  },
+  "pi|Robocraze|Raspberry Pi 5 Model 16GB RAM Official Single Board Computer": {
+    "in_stock": false,
+    "price": 34029.0
+  },
+  "pi|Robocraze|Raspberry Pi 3 Model A+": {
+    "in_stock": false,
+    "price": 3211.0
+  },
+  "pi|AryaBOT|Raspberry Pi 5 Model 1GB RAM (SC2162)": {
+    "in_stock": false,
+    "price": 5399.0
+  },
+  "pi|AryaBOT|Raspberry Pi 5 Model 2GB RAM SC1642": {
+    "in_stock": false,
+    "price": 8779.0
+  },
+  "pi|AryaBOT|Official Raspberry Pi 5 RTC Battery SC1163": {
+    "in_stock": false,
+    "price": 499.0
+  },
+  "pi|Thingbits|Raspberry Pi 3 Model A+": {
+    "in_stock": false,
+    "price": 3304.0
+  },
+  "pi|Thingbits|Raspberry Pi 3 Model B": {
+    "in_stock": false,
+    "price": 4006.1
+  },
+  "_fails": {
+    "Hubtronics 8GB (no eMMC)": 1,
+    "Hubtronics 16GB (no eMMC)": 1,
+    "Evelta (variant page par check karna)": 0,
+    "Fab.to.Lab": 0,
+    "ThinkRobotics": 0,
+    "Allnet China (international, import duty lagegi)": 0,
+    "pi-fail|ThinkRobotics": 0,
+    "pi-fail|Robocraze": 0,
+    "pi-fail|Robu.in": 1,
+    "pi-fail|AryaBOT": 0,
+    "pi-fail|Thingbits": 0
+  }
+}
