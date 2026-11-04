@@ -132,15 +132,15 @@
     "price": 4602.0
   },
   "_fails": {
-    "Hubtronics 8GB (no eMMC)": 5,
-    "Hubtronics 16GB (no eMMC)": 5,
+    "Hubtronics 8GB (no eMMC)": 6,
+    "Hubtronics 16GB (no eMMC)": 6,
     "Evelta (variant page par check karna)": 0,
     "Fab.to.Lab": 0,
     "ThinkRobotics": 0,
     "Allnet China (international, import duty lagegi)": 0,
     "pi-fail|ThinkRobotics": 0,
     "pi-fail|Robocraze": 0,
-    "pi-fail|Robu.in": 5,
+    "pi-fail|Robu.in": 6,
     "pi-fail|AryaBOT": 0,
     "pi-fail|Thingbits": 0
   }
