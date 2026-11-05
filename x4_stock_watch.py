@@ -268,14 +268,14 @@ def check_site(site):
 
 
 # ------------------------------ Telegram -------------------------------------
-def tg_send(text):
+def tg_send(text, silent=False):
     if "PASTE_BOT_TOKEN" in BOT_TOKEN:
         log("BOT_TOKEN set nahi hai, Telegram message skip: " + text.splitlines()[0])
         return False
     try:
         r = requests.post(
             f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-            data={"chat_id": CHAT_ID, "text": text},
+            data=dict({"chat_id": CHAT_ID, "text": text}, **({"disable_notification": "true"} if silent else {})),
             timeout=20,
         )
         if not r.ok:
@@ -486,6 +486,7 @@ def pi_print(items, errors):
 def run_pi_cycle(state, fails):
     items, errors = pi_collect()
     pi_print(items, errors)
+    RUN_REPORT["pi"], RUN_REPORT["pi_errors"] = items, errors
 
     for s in PI_SELLERS:
         fk = f"pi-fail|{s['name']}"
@@ -533,6 +534,43 @@ def run_pi_cycle(state, fails):
     save_state(state)
 
 
+
+# ---------------------- har run ke baad poori stock report --------------------
+RUN_REPORT = {"x4": [], "pi": [], "pi_errors": {}}
+
+
+def send_summary():
+    """Is run mein sab sites ka status + Pi ka price ek (silent) Telegram report mein."""
+    from datetime import timezone, timedelta
+    ist = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+    icon = lambda st: "🟢" if st else ("🔴" if st is False else "⚪")
+    lines = [f"📊 Stock report ({ist:%d %b, %I:%M %p} IST)", "", "Radxa X4:"]
+    for name, st, detail, url in RUN_REPORT["x4"]:
+        lines.append(f"{icon(st)} {name} - {detail if st is not None else 'padh nahi paya'}")
+    lines += ["", "Raspberry Pi:"]
+    pi = RUN_REPORT["pi"]
+    for label, _ in PI_MODELS:
+        rows = sorted((o for o in pi if o["model"] == label),
+                      key=lambda o: (o["in_stock"] is not True, o["price"] or 10**9))
+        if not rows:
+            lines.append(f"{label}: kisi seller par nahi mila")
+            continue
+        lines.append(f"{label}:")
+        for o in rows:
+            lines.append(f"{icon(o['in_stock'])} {o['seller']} | {o['name'][:60]} | {pi_price_txt(o['price'])}")
+    for seller, e in RUN_REPORT["pi_errors"].items():
+        lines.append(f"⚠️ {seller}: padh nahi paya")
+    chunk, size = [], 0
+    for ln in lines + [None]:
+        if ln is None or size + len(ln) > 3500:
+            if chunk:
+                tg_send("\n".join(chunk), silent=True)
+            chunk, size = [], 0
+        if ln is not None:
+            chunk.append(ln)
+            size += len(ln) + 1
+
+
 # ------------------------------- main loop -----------------------------------
 def run_cycle(state, fails, notify=True):
     for site in SITES:
@@ -542,6 +580,7 @@ def run_cycle(state, fails, notify=True):
             in_stock, detail = check_site(site)
         except Exception as e:  # network, parsing, kuch bhi
             in_stock, detail = None, f"error: {e}"
+        RUN_REPORT["x4"].append((name, in_stock, detail, site["url"]))
 
         if in_stock is None:
             fails[name] = fails.get(name, 0) + 1
@@ -593,6 +632,7 @@ def main():
     if args.ci:
         run_cycle(state, fails)
         run_pi_cycle(state, fails)
+        send_summary()
         state["_fails"] = fails
         save_state(state)
         return
